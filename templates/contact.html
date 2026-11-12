@@ -1,0 +1,214 @@
+{# contact.html is the Contact page where visitors can reach Ally. #}
+
+{# Use base.html as the main website layout. #}
+{% extends 'base.html' %}
+
+{# Set the browser-tab title. #}
+{% block title %}Contact Me{% endblock %}
+
+{# Start the main page content. #}
+{% block content %}
+
+{# Main contact page wrapper. #}
+<section class="contact-page">
+
+    {# Introductory heading section. #}
+    <div class="contact-heading">
+
+        {# Small section label. #}
+        <p class="contact-eyebrow">GET IN TOUCH</p>
+
+        {# Main contact-page heading. #}
+        <h1>Let's create something <span>great.</span></h1>
+
+        {# Short introduction for visitors. #}
+        <p>
+            Have a project, creative idea, website, design or IT challenge?
+            Tell me about it and let's start a conversation.
+        </p>
+
+    </div>
+
+    {# Two-column contact area. #}
+    <div class="contact-grid">
+
+        {# LEFT SIDE — Contact information. #}
+        <div class="contact-info">
+
+            {# Contact information heading. #}
+            <p class="contact-label">CONTACT INFORMATION</p>
+
+            <h2>Let's talk.</h2>
+
+            <p class="contact-description">
+                You can reach me directly through email, WhatsApp or social media.
+                I am always open to discussing creative and technology projects.
+            </p>
+
+            {# Email contact card. #}
+            <a href="mailto:mpatially@gmail.com" class="social-card">
+
+                {# Email icon. #}
+                <span class="social-icon">✉</span>
+
+                {# Email information. #}
+                <span class="social-text">
+                    <small>Email</small>
+                    <strong>mpatially@gmail.com</strong>
+                </span>
+
+                {# Arrow indicating that the card is clickable. #}
+                <span class="social-arrow">↗</span>
+
+            </a>
+
+            {# WhatsApp contact card. #}
+            <a href="https://wa.me/255688644251" target="_blank" rel="noopener noreferrer" class="social-card">
+
+                {# WhatsApp icon. #}
+                <span class="social-icon">◉</span>
+
+                {# WhatsApp information. #}
+                <span class="social-text">
+                    <small>WhatsApp</small>
+                    <strong>+255 688 644 251</strong>
+                </span>
+
+                {# Arrow indicating that the card is clickable. #}
+                <span class="social-arrow">↗</span>
+
+            </a>
+
+            {# Instagram contact card. #}
+            <a href="https://www.instagram.com/alikingstz/" target="_blank" rel="noopener noreferrer" class="social-card">
+
+                {# Instagram icon. #}
+                <span class="social-icon">◎</span>
+
+                {# Instagram information. #}
+                <span class="social-text">
+                    <small>Instagram</small>
+                    <strong>@alikingstz</strong>
+                </span>
+
+                {# Arrow indicating that the card is clickable. #}
+                <span class="social-arrow">↗</span>
+
+            </a>
+
+            {# Facebook contact card. #}
+            <a href="https://www.facebook.com/share/1H2hu4k6U2/?mibextid=wwXIfr/" target="_blank" rel="noopener noreferrer" class="social-card">
+
+                {# Facebook icon. #}
+                <span class="social-icon">f</span>
+
+                {# Facebook information. #}
+                <span class="social-text">
+                    <small>Facebook</small>
+                    <strong>Ally Mpati</strong>
+                </span>
+
+                {# Arrow indicating that the card is clickable. #}
+                <span class="social-arrow">↗</span>
+
+            </a>
+
+        </div>
+
+        {# RIGHT SIDE — Contact form. #}
+        <div class="contact-form-wrapper">
+
+            {# Form heading. #}
+            <p class="contact-label">SEND A MESSAGE</p>
+
+            <h2>Tell me about your project.</h2>
+
+            {# Django contact form. #}
+            <form method="post" class="contact-form">
+
+                {# Django security token. #}
+                {% csrf_token %}
+
+                {# Name field. #}
+                <div class="form-group">
+
+                    {# Name label. #}
+                    <label for="{{ form.name.id_for_label }}">Your name</label>
+
+                    {# Name input. #}
+                    {{ form.name }}
+
+                    {# Display validation errors if necessary. #}
+                    {% if form.name.errors %}
+                        <span class="error">{{ form.name.errors }}</span>
+                    {% endif %}
+
+                </div>
+
+                {# Email field. #}
+                <div class="form-group">
+
+                    {# Email label. #}
+                    <label for="{{ form.email.id_for_label }}">Email address</label>
+
+                    {# Email input. #}
+                    {{ form.email }}
+
+                    {# Display validation errors if necessary. #}
+                    {% if form.email.errors %}
+                        <span class="error">{{ form.email.errors }}</span>
+                    {% endif %}
+
+                </div>
+
+                {# Subject field. #}
+                <div class="form-group">
+
+                    {# Subject label. #}
+                    <label for="{{ form.subject.id_for_label }}">Project subject</label>
+
+                    {# Subject input. #}
+                    {{ form.subject }}
+
+                    {# Display validation errors if necessary. #}
+                    {% if form.subject.errors %}
+                        <span class="error">{{ form.subject.errors }}</span>
+                    {% endif %}
+
+                </div>
+
+                {# Message field. #}
+                <div class="form-group">
+
+                    {# Message label. #}
+                    <label for="{{ form.message.id_for_label }}">Tell me about the project</label>
+
+                    {# Message textarea. #}
+                    {{ form.message }}
+
+                    {# Display validation errors if necessary. #}
+                    {% if form.message.errors %}
+                        <span class="error">{{ form.message.errors }}</span>
+                    {% endif %}
+
+                </div>
+
+                {# Submit button. #}
+                <button type="submit" class="btn contact-submit">
+                    Send Message <span>↗</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{# End of the content block. #}
+{% endblock %}
+
+{# Hide only the social links and Start a project from the footer on the Contact page. #}
+{% block footer_actions %}{% endblock %}

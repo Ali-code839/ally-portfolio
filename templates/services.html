@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Services — Ally Hamad Mpati{% endblock %}
+
+{% block content %}
+<!-- Services page heading. -->
+<section class="page-hero section-shell reveal">
+    <p class="eyebrow">SERVICES</p>
+    <h1>What I can build with you.</h1>
+    <p>Creative and technical services designed to help ideas move from concept to finished product.</p>
+</section>
+
+<!-- Each service is rendered from the list supplied by services/views.py. -->
+<section class="section-shell services-list">
+    {% for service in services %}
+        <article class="service-row reveal">
+            <span class="service-number">{{ service.number }}</span>
+            <h2>{{ service.title }}</h2>
+            <p>{{ service.description }}</p>
+        </article>
+    {% endfor %}
+</section>
+
+<!-- Service page call-to-action. -->
+<section class="big-cta section-shell reveal">
+    <p class="eyebrow">READY WHEN YOU ARE</p>
+    <h2>Have a project that needs both creativity and technology?</h2>
+    <a class="btn btn-primary" href="{% url 'main:contact' %}">Tell me about it <span>↗</span></a>
+</section>
+{% endblock %}

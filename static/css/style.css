@@ -1,0 +1,1343 @@
+/* Define the visual system used throughout the portfolio. */
+:root {
+    --bg: #09090b;
+    --surface: #111114;
+    --surface-2: #17171b;
+    --text: #f5f2ea;
+    --muted: #a3a1a0;
+    --line: rgba(255,255,255,.12);
+    --accent: #c9a227;
+    --accent-dark: #c9a227;
+    --max: 1180px;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'DM Sans', sans-serif;
+}
+
+/* Make width calculations predictable. */
+*, *::before, *::after { box-sizing: border-box; }
+/* Enable smooth anchor scrolling. */
+html { scroll-behavior: smooth; }
+/* Set the global page background and typography. */
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.65 var(--body); overflow-x: hidden; }
+/* Keep headings visually strong. */
+h1, h2, h3, p { margin: 0; }
+/* Use the display font for headings and labels. */
+h1, h2, h3, .brand, .btn, .eyebrow { font-family: var(--display); }
+/* Make links inherit the site's text color. */
+a { color: inherit; text-decoration: none; }
+/* Improve keyboard focus visibility. */
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+/* Center the site's content and limit its maximum width. */
+.section-shell, .site-header, .site-footer, .messages { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+
+/* Create subtle ambient background lights. */
+.page-glow { position: fixed; width: 420px; height: 420px; border-radius: 50%; filter: blur(120px); opacity: .08; pointer-events: none; z-index: -1; }
+/* Position the first glow near the top right. */
+.page-glow-one { top: -180px; right: -120px; background: var(--accent); }
+/* Position the second glow near the lower left. */
+.page-glow-two { bottom: -220px; left: -160px; background: #765cff; }
+
+/* Style the sticky site header. */
+.site-header { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; background: rgba(9,9,11,.88); backdrop-filter: blur(18px); }
+/* Style the personal brand link. */
+.brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.03em; }
+/* Create the square brand mark. */
+.brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--accent); color: var(--accent); font-size: 15px; }
+/* Lay out desktop navigation links. */
+.main-nav { display: flex; align-items: center; gap: 30px; }
+/* Style each navigation link. */
+.main-nav a { color: var(--muted); font-size: 14px; transition: color .2s ease; }
+/* Highlight hovered and active navigation links. */
+.main-nav a:hover, .main-nav a[aria-current='page'] { color: var(--text); }
+/* Add a small active marker. */
+.main-nav a[aria-current='page']::after { content: ' •'; color: var(--accent); }
+/* Hide the mobile menu button on larger screens. */
+.menu-toggle { display: none; }
+
+/* Add consistent vertical breathing room to major sections. */
+.hero { min-height: calc(100vh - 82px); display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: clamp(40px, 7vw, 110px); padding-block: 82px; }
+/* Style small uppercase section labels. */
+.eyebrow { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .18em; }
+/* Make the hero headline the main visual statement. */
+.hero h1 { max-width: 760px; margin-top: 18px; font-size: clamp(48px, 7vw, 92px); line-height: .98; letter-spacing: -.065em; }
+/* Accent the most important phrase. */
+.hero h1 span { color: var(--accent); }
+/* Style the supporting hero text. */
+.hero-text { max-width: 600px; margin-top: 28px; color: var(--muted); font-size: clamp(17px, 2vw, 20px); }
+/* Lay out hero action buttons. */
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+/* Add small supporting metadata under the buttons. */
+.hero-meta { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; color: #777579; font-size: 12px; }
+/* Add a tiny marker before metadata items. */
+.hero-meta span::before { content: '↳'; margin-right: 7px; color: var(--accent); }
+
+/* Style all reusable buttons. */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 14px; min-height: 50px; padding: 0 21px; border: 1px solid transparent; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
+/* Make the primary action bright and easy to notice. */
+.btn-primary { background: var(--accent); color: #0b0c08; }
+/* Make the secondary action transparent. */
+.btn-secondary { border-color: var(--line); color: var(--text); }
+/* Give buttons a subtle lift on hover. */
+.btn:hover { transform: translateY(-3px); }
+/* Keep the primary button readable on hover. */
+.btn-primary:hover { background: var(--accent-dark); }
+/* Make the secondary button glow slightly on hover. */
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Style the hero visual area. */
+.hero-visual { position: relative; width: min(100%, 460px); justify-self: end; }
+/* Add the large decorative number. */
+.visual-number { position: absolute; top: -42px; right: 0; color: rgba(255,255,255,.07); font: 700 130px/1 var(--display); letter-spacing: -.08em; }
+/* Create a framed portrait composition. */
+.portrait-frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(145deg, #222227, #0e0e10); }
+/* Position the portrait image correctly. */
+.portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; filter: saturate(.92); }
+/* Provide a fallback when the portrait image is unavailable. */
+.portrait-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--accent); font: 700 100px/1 var(--display); }
+/* Style the floating role card. */
+.floating-card { position: absolute; right: -24px; bottom: 28px; display: grid; gap: 2px; min-width: 190px; padding: 16px 18px; background: var(--accent); color: #090a07; box-shadow: 0 18px 50px rgba(0,0,0,.3); }
+/* Style the small label inside the floating card. */
+.floating-card span { font-size: 10px; text-transform: uppercase; letter-spacing: .15em; }
+/* Style the main text inside the floating card. */
+.floating-card strong { font: 700 14px var(--display); }
+
+/* Style the introduction statement. */
+.intro { padding-block: 110px; border-top: 1px solid var(--line); }
+/* Make the introduction heading prominent. */
+.intro h2 { max-width: 900px; margin-top: 18px; font-size: clamp(38px, 5vw, 68px); line-height: 1.02; letter-spacing: -.055em; }
+/* Style the introduction supporting paragraph. */
+.intro-copy { max-width: 650px; margin-top: 25px; color: var(--muted); font-size: 17px; }
+
+/* Keep section headings aligned and spacious. */
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 30px; }
+/* Style section heading links. */
+.section-heading > a { color: var(--muted); font-size: 13px; border-bottom: 1px solid var(--line); padding-bottom: 5px; }
+/* Highlight section heading links on hover. */
+.section-heading > a:hover { color: var(--accent); border-color: var(--accent); }
+/* Lay out the capability cards. */
+.capability-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+/* Style each capability card. */
+.capability-card { min-height: 250px; padding: 25px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.015); transition: background .25s ease, transform .25s ease; }
+/* Add a subtle interaction to capability cards. */
+.capability-card:hover { background: var(--surface); transform: translateY(-5px); }
+/* Style capability numbers. */
+.capability-card span { color: var(--accent); font-size: 11px; }
+/* Style capability titles. */
+.capability-card h3 { margin-top: 80px; font-size: 24px; letter-spacing: -.04em; }
+/* Style capability descriptions. */
+.capability-card p { margin-top: 9px; color: var(--muted); font-size: 13px; }
+
+/* Add spacing before the selected work section. */
+.projects-preview { padding-block: 120px; }
+/* Make the projects heading large. */
+.section-heading h2 { margin-top: 8px; font-size: clamp(38px, 5vw, 64px); letter-spacing: -.055em; line-height: 1; }
+/* Create a responsive project grid. */
+.project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+/* Style each project card. */
+.project-card { min-width: 0; }
+/* Create a crop container for project images. */
+.project-image { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface); }
+/* Make project images fill their cards. */
+.project-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+/* Add a gentle zoom when visitors hover a project. */
+.project-card:hover .project-image img { transform: scale(1.045); }
+/* Style the category badge over images. */
+.project-category { position: absolute; top: 14px; left: 14px; padding: 7px 10px; background: rgba(9,9,11,.8); backdrop-filter: blur(10px); color: var(--accent); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+/* Give missing images a category-specific visual placeholder. */
+.project-placeholder { display: grid; place-items: end start; padding: 22px; font: 700 28px var(--display); }
+/* Set placeholder backgrounds. */
+.cat-graphic { background: linear-gradient(135deg, #3425a8, #121214); }
+.cat-photo { background: linear-gradient(135deg, #0f5b58, #121214); }
+.cat-video { background: linear-gradient(135deg, #8b3141, #121214); }
+.cat-web { background: linear-gradient(135deg, #34343a, #121214); }
+/* Style project text below images. */
+.project-info { padding-top: 14px; }
+/* Style project titles. */
+.project-info h2, .project-info h3 { font-size: 22px; letter-spacing: -.03em; }
+/* Style project descriptions. */
+.project-info p { margin-top: 5px; color: var(--muted); font-size: 13px; }
+/* Give the project grid its own bottom spacing. */
+.portfolio-grid { padding-bottom: 100px; }
+
+/* Style the full-width final call to action. */
+.big-cta { margin-block: 20px 100px; padding: 70px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+/* Make the CTA heading large. */
+.big-cta h2 { max-width: 800px; margin: 14px 0 28px; font-size: clamp(42px, 6vw, 76px); line-height: .98; letter-spacing: -.06em; }
+
+/* Style inner page hero headings. */
+.page-hero { padding-block: 110px 70px; }
+/* Style inner page hero title. */
+.page-hero h1 { margin-top: 15px; font-size: clamp(55px, 8vw, 100px); line-height: .95; letter-spacing: -.07em; }
+/* Style inner page hero paragraph. */
+.page-hero > p:last-child { max-width: 650px; margin-top: 24px; color: var(--muted); font-size: 18px; }
+/* Lay out portfolio filters. */
+.filters { display: flex; flex-wrap: wrap; gap: 9px; padding-bottom: 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+/* Style each filter. */
+.filter { padding: 9px 13px; border: 1px solid var(--line); color: var(--muted); font-size: 12px; transition: .2s ease; }
+/* Highlight the selected filter. */
+.filter:hover, .filter.active { border-color: var(--accent); color: var(--accent); }
+/* Style the services list. */
+.services-list { padding-bottom: 90px; }
+/* Build a three-column service row. */
+.service-row { display: grid; grid-template-columns: 80px 1fr 1.3fr; align-items: center; gap: 25px; padding: 30px 0; border-top: 1px solid var(--line); }
+/* Style service numbers. */
+.service-number { color: var(--accent); font-size: 11px; }
+/* Style service names. */
+.service-row h2 { font-size: clamp(26px, 3vw, 40px); letter-spacing: -.04em; }
+/* Style service descriptions. */
+.service-row p { color: var(--muted); font-size: 14px; }
+
+/* Arrange the contact information and form side by side. */
+.contact-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: 90px; padding-bottom: 110px; }
+/* Style the decorative contact symbol. */
+.contact-symbol { color: var(--accent); font-size: 38px; }
+/* Style the contact introduction heading. */
+.contact-intro h2 { max-width: 520px; margin-top: 25px; font-size: clamp(36px, 5vw, 60px); line-height: 1; letter-spacing: -.055em; }
+/* Style the contact introduction paragraph. */
+.contact-intro p { max-width: 450px; margin-top: 20px; color: var(--muted); }
+/* Stack form fields vertically. */
+.contact-form { display: grid; gap: 19px; }
+/* Keep each form field grouped. */
+.form-group { display: grid; gap: 8px; }
+/* Style form labels. */
+.form-group label { font-size: 12px; color: #d5d3d0; }
+/* Style all form controls. */
+.contact-form input, .contact-form textarea { width: 100%; border: 1px solid var(--line); outline: none; background: var(--surface); color: var(--text); padding: 14px 15px; font: inherit; transition: border-color .2s ease, background .2s ease; }
+/* Make the message field taller. */
+.contact-form textarea { min-height: 170px; resize: vertical; }
+/* Highlight focused form controls. */
+.contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); background: var(--surface-2); }
+/* Style validation errors. */
+.error { color: #ff8f8f; font-size: 12px; }
+
+/* Style the footer. */
+.site-footer { display: flex; justify-content: space-between; align-items: end; gap: 30px; padding: 38px 0 60px; border-top: 1px solid var(--line); }
+/* Style the footer label. */
+.footer-label { color: var(--accent); font: 700 10px var(--display); letter-spacing: .16em; }
+/* Style the footer supporting text. */
+.site-footer p { margin-top: 7px; color: var(--muted); font-size: 12px; }
+/* Style the footer action. */
+.footer-cta { color: var(--text); font: 700 14px var(--display); }
+/* Highlight the footer action arrow. */
+.footer-cta span { color: var(--accent); margin-left: 8px; }
+/* Style Django messages. */
+.messages { padding-top: 18px; }
+/* Style an individual message. */
+.message { margin: 0; padding: 12px 15px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font-size: 13px; }
+/* Make success messages use the accent. */
+.message.success { color: var(--accent); border-color: rgba(201,255,61,.35); }
+/* Style the empty project state. */
+.empty-state { grid-column: 1 / -1; padding: 45px; border: 1px dashed var(--line); background: rgba(255,255,255,.015); }
+/* Style empty state secondary text. */
+.empty-state p { margin-top: 6px; color: var(--muted); font-size: 13px; }
+/* Style inline code in empty states. */
+code { color: var(--accent); }
+
+/* Start reveal elements slightly hidden before scrolling into view. */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+/* Make revealed elements visible. */
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+/* Delay selected hero visual animations. */
+.reveal-delay { transition-delay: .12s; }
+
+/* Adapt the design for medium screens. */
+@media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-block: 70px; }
+    .hero-visual { justify-self: start; width: min(100%, 430px); }
+    .capability-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-layout { grid-template-columns: 1fr; gap: 50px; }
+}
+
+/* Adapt the navigation and grids for phones. */
+@media (max-width: 680px) {
+    .section-shell, .site-header, .site-footer, .messages { width: min(var(--max), calc(100% - 30px)); }
+    .site-header { min-height: 72px; }
+    .menu-toggle { display: inline-flex; padding: 8px 0; border: 0; background: transparent; color: var(--text); font: 700 12px var(--display); cursor: pointer; }
+    .main-nav { display: none; position: absolute; left: 15px; right: 15px; top: 72px; padding: 15px; flex-direction: column; align-items: stretch; gap: 0; border: 1px solid var(--line); background: rgba(17,17,20,.98); }
+    .main-nav.open { display: flex; }
+    .main-nav a { padding: 13px 8px; border-bottom: 1px solid var(--line); }
+    .main-nav a:last-child { border-bottom: 0; }
+    .hero h1 { font-size: clamp(48px, 15vw, 72px); }
+    .floating-card { right: 10px; bottom: 14px; min-width: 165px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .capability-grid { grid-template-columns: 1fr; }
+    .capability-card { min-height: 190px; }
+    .capability-card h3 { margin-top: 50px; }
+    .service-row { grid-template-columns: 42px 1fr; gap: 8px 15px; }
+    .service-row p { grid-column: 2; }
+    .site-footer { align-items: flex-start; flex-direction: column; }
+}
+
+/* Respect visitors who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .reveal { opacity: 1; transform: none; }
+}
+/* =========================================================
+   CONTACT PAGE
+   This section controls the complete contact-page design.
+   ========================================================= */
+
+
+/* Main contact-page container. */
+.contact-page {
+    /* Limits the maximum width of the content. */
+    max-width: 1200px;
+
+    /* Centers the contact page horizontally. */
+    margin: 0 auto;
+
+    /* Adds space around the page. */
+    padding: 80px 24px;
+}
+
+
+/* Introductory contact heading section. */
+.contact-heading {
+    /* Limits the width so the heading does not become too wide. */
+    max-width: 760px;
+
+    /* Adds space below the heading. */
+    margin-bottom: 60px;
+}
+
+
+/* Small label above the main heading. */
+.contact-eyebrow {
+    /* Makes the text slightly smaller. */
+    font-size: 0.78rem;
+
+    /* Adds spacing between the letters. */
+    letter-spacing: 0.18em;
+
+    /* Makes the label bold. */
+    font-weight: 700;
+
+    /* Uses the portfolio accent color. */
+    color: var(--accent);
+
+    /* Adds space below the label. */
+    margin-bottom: 16px;
+}
+
+
+/* Main contact-page heading. */
+.contact-heading h1 {
+    /* Makes the heading large and noticeable. */
+    font-size: clamp(2.5rem, 6vw, 5rem);
+
+    /* Makes the heading compact vertically. */
+    line-height: 0.98;
+
+    /* Removes the browser's default margin. */
+    margin: 0 0 24px;
+}
+
+
+/* Highlights the word inside the heading. */
+.contact-heading h1 span {
+    /* Uses the portfolio accent color. */
+    color: var(--accent);
+}
+
+
+/* Introductory paragraph. */
+.contact-heading > p:last-child {
+    /* Makes the paragraph easier to read. */
+    max-width: 650px;
+
+    /* Uses the secondary text color. */
+    color: var(--muted);
+
+    /* Gives the paragraph comfortable line spacing. */
+    line-height: 1.8;
+
+    /* Makes the text slightly larger. */
+    font-size: 1.05rem;
+}
+
+
+/* Creates the two-column contact layout. */
+.contact-grid {
+    /* Uses CSS Grid for the layout. */
+    display: grid;
+
+    /* Creates two columns. */
+    grid-template-columns: 0.9fr 1.1fr;
+
+    /* Space between the two columns. */
+    gap: 70px;
+
+    /* Aligns both columns at the top. */
+    align-items: start;
+}
+
+
+/* Contact-information column. */
+.contact-info {
+    /* Allows the column to shrink correctly. */
+    min-width: 0;
+}
+
+
+/* Small label above contact information. */
+.contact-label {
+    /* Makes the label compact. */
+    font-size: 0.72rem;
+
+    /* Adds letter spacing for a premium look. */
+    letter-spacing: 0.18em;
+
+    /* Makes the label bold. */
+    font-weight: 700;
+
+    /* Uses the accent color. */
+    color: var(--accent);
+
+    /* Adds space below the label. */
+    margin-bottom: 14px;
+}
+
+
+/* Contact section heading. */
+.contact-info h2,
+.contact-form-wrapper h2 {
+    /* Makes the heading prominent. */
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+
+    /* Removes unnecessary top margin. */
+    margin-top: 0;
+
+    /* Adds space below the heading. */
+    margin-bottom: 16px;
+}
+
+
+/* Contact description. */
+.contact-description {
+    /* Uses the muted text color. */
+    color: var(--muted);
+
+    /* Improves readability. */
+    line-height: 1.8;
+
+    /* Adds space below the paragraph. */
+    margin-bottom: 30px;
+}
+
+
+/* Individual social/contact card. */
+.social-card {
+    /* Places the icon, text and arrow in one row. */
+    display: flex;
+
+    /* Vertically centers the contents. */
+    align-items: center;
+
+    /* Adds space between the elements. */
+    gap: 16px;
+
+    /* Gives each card comfortable internal spacing. */
+    padding: 18px 20px;
+
+    /* Adds space between cards. */
+    margin-bottom: 12px;
+
+    /* Removes the default link underline. */
+    text-decoration: none;
+
+    /* Uses the site's text color. */
+    color: var(--text);
+
+    /* Creates a subtle border. */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* Slightly rounds the corners. */
+    border-radius: 14px;
+
+    /* Adds a smooth hover animation. */
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+
+/* Contact card hover effect. */
+.social-card:hover {
+    /* Moves the card slightly to the right. */
+    transform: translateX(6px);
+
+    /* Makes the accent border visible. */
+    border-color: var(--accent);
+
+    /* Adds a subtle background effect. */
+    background: rgba(255, 255, 255, 0.04);
+}
+
+
+/* Icon container inside each contact card. */
+.social-icon {
+    /* Creates a fixed icon size. */
+    width: 44px;
+
+    /* Creates a fixed icon height. */
+    height: 44px;
+
+    /* Centers the icon horizontally. */
+    display: grid;
+
+    /* Centers the icon vertically. */
+    place-items: center;
+
+    /* Makes the icon container circular. */
+    border-radius: 50%;
+
+    /* Uses a subtle background. */
+    background: rgba(255, 255, 255, 0.06);
+
+    /* Uses the accent color. */
+    color: var(--accent);
+
+    /* Makes the icon slightly larger. */
+    font-size: 1.15rem;
+
+    /* Makes text-based icons bold. */
+    font-weight: 700;
+
+    /* Prevents the icon from shrinking. */
+    flex-shrink: 0;
+}
+
+
+/* Text section inside the social card. */
+.social-text {
+    /* Allows the text area to use available space. */
+    flex: 1;
+
+    /* Places the label and value vertically. */
+    display: flex;
+
+    /* Stacks the elements. */
+    flex-direction: column;
+
+    /* Adds a small gap between them. */
+    gap: 4px;
+}
+
+
+/* Small social-platform label. */
+.social-text small {
+    /* Uses the muted color. */
+    color: var(--muted);
+
+    /* Makes the label slightly smaller. */
+    font-size: 0.72rem;
+
+    /* Adds letter spacing. */
+    letter-spacing: 0.08em;
+
+    /* Converts the label to uppercase. */
+    text-transform: uppercase;
+}
+
+
+/* Actual contact value. */
+.social-text strong {
+    /* Makes the contact value readable. */
+    font-size: 0.95rem;
+
+    /* Keeps long email addresses from breaking the layout. */
+    overflow-wrap: anywhere;
+}
+
+
+/* Arrow on the right side of each card. */
+.social-arrow {
+    /* Uses the muted color normally. */
+    color: var(--muted);
+
+    /* Adds a smooth color transition. */
+    transition: color 0.25s ease;
+
+    /* Makes the arrow slightly larger. */
+    font-size: 1.1rem;
+}
+
+
+/* Changes the arrow color when hovering over the card. */
+.social-card:hover .social-arrow {
+    /* Uses the accent color. */
+    color: var(--accent);
+}
+
+
+/* Right-side contact-form container. */
+.contact-form-wrapper {
+    /* Creates a subtle panel around the form. */
+    padding: 34px;
+
+    /* Adds a very subtle border. */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* Rounds the panel corners. */
+    border-radius: 20px;
+
+    /* Adds a subtle background. */
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+/* Contact form itself. */
+.contact-form {
+    /* Places form fields vertically. */
+    display: flex;
+
+    /* Stacks the fields. */
+    flex-direction: column;
+
+    /* Adds consistent spacing between fields. */
+    gap: 20px;
+}
+
+
+/* Individual form group. */
+.form-group {
+    /* Places the label above its input. */
+    display: flex;
+
+    /* Stacks label and input. */
+    flex-direction: column;
+
+    /* Adds space between label and input. */
+    gap: 8px;
+}
+
+
+/* Form labels. */
+.form-group label {
+    /* Makes labels easier to identify. */
+    font-size: 0.85rem;
+
+    /* Makes labels slightly bold. */
+    font-weight: 600;
+}
+
+
+/* Text inputs and message area. */
+.contact-form input,
+.contact-form textarea {
+    /* Makes fields fill the available width. */
+    width: 100%;
+
+    /* Uses the portfolio background. */
+    background: rgba(255, 255, 255, 0.04);
+
+    /* Gives text a clean appearance. */
+    color: var(--text);
+
+    /* Adds internal spacing. */
+    padding: 14px 16px;
+
+    /* Creates a subtle border. */
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    /* Rounds the fields. */
+    border-radius: 10px;
+
+    /* Removes the default outline. */
+    outline: none;
+
+    /* Uses a readable font size. */
+    font-size: 0.95rem;
+
+    /* Makes border changes smooth. */
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* Textarea-specific styling. */
+.contact-form textarea {
+    /* Gives the visitor enough space to write. */
+    min-height: 170px;
+
+    /* Allows vertical resizing only. */
+    resize: vertical;
+}
+
+
+/* Input focus state. */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    /* Highlights the active field. */
+    border-color: var(--accent);
+
+    /* Slightly increases the field background. */
+    background: rgba(255, 255, 255, 0.06);
+}
+
+
+/* Form validation error text. */
+.error {
+    /* Uses a visible warning color. */
+    color: #ff6b6b;
+
+    /* Makes the error slightly smaller. */
+    font-size: 0.78rem;
+}
+
+
+/* Contact submit button. */
+.contact-submit {
+    /* Makes the button fit naturally in the form. */
+    align-self: flex-start;
+
+    /* Adds comfortable horizontal spacing. */
+    padding-left: 24px;
+
+    /* Adds comfortable horizontal spacing. */
+    padding-right: 24px;
+
+    /* Shows that the button is clickable. */
+    cursor: pointer;
+}
+
+
+/* Arrow inside the submit button. */
+.contact-submit span {
+    /* Adds a little space before the arrow. */
+    margin-left: 6px;
+}
+
+
+/* =========================================================
+   MOBILE CONTACT PAGE
+   ========================================================= */
+
+
+/* Adjust the contact page for tablets and phones. */
+@media (max-width: 850px) {
+
+    /* Change the two-column layout to one column. */
+    .contact-grid {
+        grid-template-columns: 1fr;
+
+        /* Reduce the gap on smaller screens. */
+        gap: 45px;
+    }
+
+    /* Reduce the contact page's top and bottom spacing. */
+    .contact-page {
+        padding: 60px 20px;
+    }
+
+}
+
+
+/* Adjust the contact form for small phones. */
+@media (max-width: 520px) {
+
+    /* Reduce the form panel padding. */
+    .contact-form-wrapper {
+        padding: 22px;
+    }
+
+    /* Reduce the main heading size slightly. */
+    .contact-heading h1 {
+        font-size: 2.6rem;
+    }
+
+    /* Make the contact cards slightly more compact. */
+    .social-card {
+        padding: 15px;
+    }
+
+    /* Reduce icon size on very small screens. */
+    .social-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+}
+/* =========================================================
+   FOOTER SOCIAL LINKS
+   Makes Instagram, Facebook, WhatsApp and Email look clean.
+   ========================================================= */
+
+
+/* Controls the group containing all social links. */
+.footer-socials {
+    /* Places the links next to each other. */
+    display: flex;
+
+    /* Adds space between the links. */
+    gap: 10px;
+
+    /* Allows the links to wrap on smaller screens. */
+    flex-wrap: wrap;
+
+    /* Centers the links vertically. */
+    align-items: center;
+}
+
+
+/* Individual social-media button. */
+.footer-social {
+    /* Places the icon and text beside each other. */
+    display: inline-flex;
+
+    /* Vertically centers the contents. */
+    align-items: center;
+
+    /* Adds space between the icon and name. */
+    gap: 8px;
+
+    /* Adds internal spacing. */
+    padding: 9px 12px;
+
+    /* Removes the normal link underline. */
+    text-decoration: none;
+
+    /* Uses the normal text color. */
+    color: var(--text);
+
+    /* Adds a subtle border. */
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    /* Gives the button rounded corners. */
+    border-radius: 999px;
+
+    /* Slightly smaller than normal text. */
+    font-size: 0.78rem;
+
+    /* Makes the text slightly stronger. */
+    font-weight: 600;
+
+    /* Smooth hover animation. */
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* Small icon inside each social button. */
+.footer-social-icon {
+    /* Creates a small circular icon area. */
+    width: 25px;
+
+    /* Creates a matching height. */
+    height: 25px;
+
+    /* Centers the icon. */
+    display: grid;
+
+    /* Centers the icon vertically and horizontally. */
+    place-items: center;
+
+    /* Makes the icon circular. */
+    border-radius: 50%;
+
+    /* Gives the icon a subtle background. */
+    background: rgba(255, 255, 255, 0.07);
+
+    /* Uses the portfolio accent color. */
+    color: var(--accent);
+
+    /* Makes the icon slightly bold. */
+    font-weight: 700;
+
+    /* Keeps the icon from becoming too large. */
+    font-size: 0.8rem;
+}
+
+
+/* Social button hover effect. */
+.footer-social:hover {
+    /* Moves the button slightly upward. */
+    transform: translateY(-2px);
+
+    /* Changes the border to the accent color. */
+    border-color: var(--accent);
+
+    /* Changes the text color. */
+    color: var(--accent);
+
+    /* Adds a subtle background. */
+    background: rgba(255, 255, 255, 0.04);
+}
+
+
+/* Changes the icon background when hovering. */
+.footer-social:hover .footer-social-icon {
+    /* Makes the accent more visible. */
+    background: rgba(255, 255, 255, 0.10);
+}
+
+
+/* Footer brand section. */
+.footer-brand {
+    /* Prevents the brand text from becoming too wide. */
+    max-width: 300px;
+}
+
+
+/* Footer description. */
+.footer-brand p {
+    /* Uses the muted text color. */
+    color: var(--muted);
+
+    /* Removes excessive default spacing. */
+    margin-top: 8px;
+
+    /* Gives the text comfortable line spacing. */
+    line-height: 1.5;
+}
+
+
+/* Responsive footer for smaller screens. */
+@media (max-width: 800px) {
+
+    /* Stack the footer elements vertically. */
+    .site-footer {
+        flex-direction: column;
+
+        /* Align everything to the left. */
+        align-items: flex-start;
+
+        /* Add a little more space between sections. */
+        gap: 24px;
+    }
+
+}
+
+
+/* Very small phone screens. */
+@media (max-width: 480px) {
+
+    /* Allow social buttons to use the available width. */
+    .footer-socials {
+        width: 100%;
+    }
+
+    /* Make each social button slightly easier to tap. */
+    .footer-social {
+        padding: 10px 13px;
+    }
+
+}
+/* =========================================================
+   CONTACT SEND MESSAGE BUTTON HOVER
+   ========================================================= */
+
+/* Changes the Send Message button when the mouse is over it. */
+.contact-submit:hover {
+    /* Changes the button background to gold. */
+    background: #d4af37;
+
+    /* Changes the text to a dark color for better contrast. */
+    color: #111111;
+
+    /* Changes the border to gold as well. */
+    border-color: #d4af37;
+
+    /* Adds a subtle gold glow. */
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+}
+/* =========================================================
+   GOLD SEND MESSAGE BUTTON
+   ========================================================= */
+
+/* Makes the contact form button gold by default. */
+.contact-form .contact-submit {
+    background: #d4af37 !important;
+    color: #111111 !important;
+    border-color: #d4af37 !important;
+}
+
+/* Keeps the button gold when the mouse is over it. */
+.contact-form .contact-submit:hover {
+    background: #e0bd4f !important;
+    color: #111111 !important;
+    border-color: #e0bd4f !important;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.30);
+}
+/* =========================================================
+   CONTACT PAGE - FINAL STYLING
+   ========================================================= */
+
+/* Styles the Send Message button specifically. */
+.contact-form .contact-submit {
+    background: #d4af37 !important; /* Makes the button gold. */
+    color: #111111 !important; /* Makes the text dark. */
+    border: 1px solid #d4af37 !important; /* Gives the button a gold border. */
+    cursor: pointer; /* Shows that the button can be clicked. */
+    transition: all 0.25s ease; /* Makes the hover animation smooth. */
+}
+
+/* Changes the Send Message button when the mouse is over it. */
+.contact-form .contact-submit:hover {
+    background: #e5c158 !important; /* Makes the gold slightly brighter. */
+    color: #111111 !important; /* Keeps the text dark. */
+    border-color: #e5c158 !important; /* Keeps the border gold. */
+    transform: translateY(-2px); /* Lifts the button slightly. */
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.30); /* Adds a subtle gold glow. */
+}
+
+
+/* =========================================================
+   FOOTER SOCIAL LINKS
+   ========================================================= */
+
+/* Creates a clean group for the four social buttons. */
+.footer-socials {
+    display: flex; /* Places the buttons in a row. */
+    align-items: center; /* Centers them vertically. */
+    gap: 10px; /* Adds space between buttons. */
+    flex-wrap: wrap; /* Allows them to wrap on small screens. */
+}
+
+
+/* Styles each individual social button. */
+.footer-social {
+    display: inline-flex; /* Places icon and text beside each other. */
+    align-items: center; /* Centers the icon and text vertically. */
+    gap: 8px; /* Adds space between icon and text. */
+    padding: 8px 12px; /* Adds space inside the button. */
+    color: var(--ink); /* Uses the site's normal text color. */
+    text-decoration: none; /* Removes the underline. */
+    border: 1px solid var(--line); /* Adds a subtle border. */
+    border-radius: 999px; /* Creates a pill-shaped button. */
+    font-size: 0.78rem; /* Keeps the footer buttons compact. */
+    font-weight: 700; /* Makes the labels clear. */
+    background: transparent; /* Keeps the footer clean. */
+    transition: all 0.25s ease; /* Smooth hover animation. */
+}
+
+
+/* Creates the small circle around each social icon. */
+.footer-social-icon {
+    width: 26px; /* Sets the icon circle width. */
+    height: 26px; /* Sets the icon circle height. */
+    display: grid; /* Allows easy centering. */
+    place-items: center; /* Centers the icon. */
+    border-radius: 50%; /* Makes the icon container circular. */
+    background: var(--ink); /* Gives the icon a dark background. */
+    color: #ffffff; /* Makes the icon visible. */
+    font-size: 0.8rem; /* Sets the icon size. */
+    font-weight: 800; /* Makes text-based icons stronger. */
+}
+
+
+/* Changes the social button when hovered. */
+.footer-social:hover {
+    color: #d4af37; /* Changes the text to gold. */
+    border-color: #d4af37; /* Changes the border to gold. */
+    transform: translateY(-2px); /* Lifts the button slightly. */
+}
+
+
+/* Changes the icon when its button is hovered. */
+.footer-social:hover .footer-social-icon {
+    background: #d4af37; /* Changes the icon circle to gold. */
+    color: #111111; /* Makes the icon dark. */
+}
+
+
+/* =========================================================
+   CONTACT INFORMATION CARDS
+   ========================================================= */
+
+/* Creates the vertical list of contact cards. */
+.contact-info {
+    min-width: 0; /* Prevents content from overflowing. */
+}
+
+
+/* Styles each contact/social card. */
+.social-card {
+    display: flex; /* Places icon, text and arrow in one row. */
+    align-items: center; /* Centers everything vertically. */
+    gap: 15px; /* Adds space between elements. */
+    width: 100%; /* Makes the card use the available width. */
+    padding: 15px 17px; /* Adds comfortable internal spacing. */
+    margin-bottom: 12px; /* Separates each card. */
+    color: var(--ink); /* Uses the site's text color. */
+    text-decoration: none; /* Removes link underline. */
+    border: 1px solid var(--line); /* Adds a subtle border. */
+    border-radius: 14px; /* Gives the cards modern rounded corners. */
+    background: transparent; /* Keeps the design clean. */
+    transition: all 0.25s ease; /* Makes hover smooth. */
+}
+
+
+/* Contact card hover effect. */
+.social-card:hover {
+    border-color: #d4af37; /* Makes the border gold. */
+    transform: translateX(5px); /* Moves the card slightly right. */
+    background: rgba(212, 175, 55, 0.04); /* Adds a tiny gold tint. */
+}
+
+
+/* Circular icon area inside contact cards. */
+.social-card .social-icon {
+    width: 42px; /* Sets icon width. */
+    height: 42px; /* Sets icon height. */
+    min-width: 42px; /* Prevents the icon from shrinking. */
+    display: grid; /* Allows easy centering. */
+    place-items: center; /* Centers the icon. */
+    border-radius: 50%; /* Makes the icon circular. */
+    background: var(--ink); /* Gives it a dark background. */
+    color: #ffffff; /* Makes the icon visible. */
+    font-size: 1rem; /* Sets icon size. */
+    font-weight: 800; /* Makes text-based icons stronger. */
+    transition: all 0.25s ease; /* Smooth icon animation. */
+}
+
+
+/* Changes the contact icon when the card is hovered. */
+.social-card:hover .social-icon {
+    background: #d4af37; /* Makes the icon gold. */
+    color: #111111; /* Makes the icon dark. */
+}
+
+
+/* Contact card text area. */
+.social-text {
+    display: flex; /* Uses a flexible layout. */
+    flex-direction: column; /* Places label above value. */
+    gap: 3px; /* Adds small spacing. */
+    flex: 1; /* Uses remaining card space. */
+}
+
+
+/* Small label inside contact cards. */
+.social-text small {
+    color: var(--muted); /* Uses the muted text color. */
+    font-size: 0.7rem; /* Makes the label small. */
+    text-transform: uppercase; /* Converts it to uppercase. */
+    letter-spacing: 0.1em; /* Adds professional spacing. */
+}
+
+
+/* Main contact value. */
+.social-text strong {
+    font-size: 0.92rem; /* Makes the value readable. */
+    overflow-wrap: anywhere; /* Prevents long email addresses from overflowing. */
+}
+
+
+/* Arrow on contact cards. */
+.social-arrow {
+    color: var(--muted); /* Uses muted color normally. */
+    font-size: 1.1rem; /* Makes the arrow visible. */
+    transition: color 0.25s ease; /* Smooth color transition. */
+}
+
+
+/* Makes the arrow gold when the card is hovered. */
+.social-card:hover .social-arrow {
+    color: #d4af37; /* Changes the arrow to gold. */
+}
+
+
+/* =========================================================
+   CONTACT FORM
+   ========================================================= */
+
+/* Styles the form panel. */
+.contact-form-wrapper {
+    padding: 32px; /* Adds space inside the panel. */
+    border: 1px solid var(--line); /* Adds a subtle border. */
+    border-radius: 20px; /* Rounds the panel corners. */
+}
+
+
+/* Makes form fields stack vertically. */
+.contact-form {
+    display: flex; /* Enables flexible layout. */
+    flex-direction: column; /* Places fields one below another. */
+    gap: 20px; /* Adds space between fields. */
+}
+
+
+/* Form field wrapper. */
+.contact-form .form-group {
+    display: flex; /* Enables flexible layout. */
+    flex-direction: column; /* Places label above input. */
+    gap: 8px; /* Adds space between label and input. */
+}
+
+
+/* Text fields and textarea. */
+.contact-form input,
+.contact-form textarea {
+    width: 100%; /* Makes fields fill the panel. */
+    padding: 14px 16px; /* Adds comfortable typing space. */
+    color: var(--ink); /* Uses the site's text color. */
+    background: transparent; /* Keeps the design clean. */
+    border: 1px solid var(--line); /* Adds a subtle border. */
+    border-radius: 10px; /* Rounds the fields. */
+    outline: none; /* Removes the browser outline. */
+    transition: border-color 0.25s ease, box-shadow 0.25s ease; /* Smooth focus effect. */
+}
+
+
+/* Makes the message box taller. */
+.contact-form textarea {
+    min-height: 170px; /* Gives visitors enough writing space. */
+    resize: vertical; /* Allows vertical resizing only. */
+}
+
+
+/* Highlights a field when the visitor clicks it. */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #d4af37; /* Makes the active field gold. */
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08); /* Adds a subtle gold focus ring. */
+}
+
+
+/* =========================================================
+   MOBILE FOOTER
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    /* Stacks footer sections on smaller screens. */
+    .site-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+    }
+
+    /* Allows social buttons to use the full width. */
+    .footer-socials {
+        width: 100%;
+    }
+
+}
+/* =========================================================
+   FOOTER - FINAL LAYOUT
+   ========================================================= */
+
+/* Creates a stable three-part footer layout. */
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    width: 88%;
+    padding: 40px 0;
+    border-top: 1px solid var(--line);
+}
+
+/* Keeps the footer brand visible. */
+.footer-brand {
+    flex: 1;
+}
+
+/* Keeps the social links in the middle. */
+.footer-socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Keeps Start a project visible on the right. */
+.footer-cta {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 13px 20px;
+    color: #111 !important;
+    background: #d4af37 !important;
+    border: 1px solid #d4af37 !important;
+    border-radius: 999px;
+    text-decoration: none !important;
+    font-weight: 700;
+    white-space: nowrap;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: all 0.25s ease;
+}
+
+/* Makes the CTA slightly brighter when hovered. */
+.footer-cta:hover {
+    background: #e5c158 !important;
+    border-color: #e5c158 !important;
+    color: #111 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+}
+
+/* Keeps the footer usable on smaller screens. */
+@media (max-width: 900px) {
+    .site-footer {
+        flex-wrap: wrap;
+    }
+
+    .footer-brand {
+        flex-basis: 100%;
+    }
+
+    .footer-socials {
+        justify-content: flex-start;
+    }
+}
+
+/* Stacks everything on phones. */
+@media (max-width: 600px) {
+    .site-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-socials {
+        justify-content: flex-start;
+    }
+
+    .footer-cta {
+        width: auto;
+    }
+}
+/* Makes the Start a Project button smaller and more compact. */
+.footer-cta {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+
+    /* Reduced internal spacing. */
+    padding: 9px 14px;
+
+    color: #111 !important;
+    background: #d4af37 !important;
+    border: 1px solid #d4af37 !important;
+
+    /* Keeps the rounded shape. */
+    border-radius: 999px;
+
+    /* Slightly smaller text. */
+    font-size: 0.78rem;
+
+    /* Keeps the button compact. */
+    width: auto;
+    min-width: 0;
+
+    text-decoration: none !important;
+    font-weight: 700;
+    white-space: nowrap;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+}

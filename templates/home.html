@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ally Hamad Mpati — Software Engineer & Creative Designer{% endblock %}
+
+{% block content %}
+<!-- Hero section introduces the person and the main value of the portfolio. -->
+<section class="hero section-shell">
+    <!-- Left side contains the main headline and actions. -->
+    <div class="hero-copy reveal">
+        <!-- Small label establishes the creative + technology positioning. -->
+        <p class="eyebrow">SOFTWARE ENGINEER × CREATIVE DESIGNER</p>
+        <!-- Main headline is intentionally short and memorable. -->
+        <h1>I turn ideas into <span>digital reality.</span></h1>
+        <!-- Supporting paragraph explains the range of work. -->
+        <p class="hero-text">I build modern digital experiences and create visual work across design, photography, video, web development and IT.</p>
+        <!-- Primary and secondary actions give visitors clear next steps. -->
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{% url 'portfolio:list' %}">Explore my work <span>↗</span></a>
+            <a class="btn btn-secondary" href="{% url 'main:contact' %}">Let's work together</a>
+        </div>
+        <!-- Small credibility line adds personality without overcrowding the hero. -->
+        <div class="hero-meta"><span>Based in Tanzania</span><span>Available for selected projects</span></div>
+    </div>
+
+    <!-- Right side contains the portrait and an abstract visual frame. -->
+    <div class="hero-visual reveal reveal-delay">
+        <div class="visual-number">01</div>
+        <div class="portrait-frame">
+            <!-- Use the existing portrait image when available. -->
+            <img src="{% static 'img/ally.jpg' %}" alt="Portrait of Ally Hamad Mpati" onerror="this.style.display='none'">
+            <!-- This fallback remains visible if the image cannot be loaded. -->
+            <div class="portrait-fallback" aria-hidden="true"></div>
+        </div>
+        <!-- Floating role card reinforces the multidisciplinary identity. -->
+        <div class="floating-card"><span>Currently</span><strong>Building + designing</strong></div>
+    </div>
+</section>
+
+<!-- Short introduction section separates the hero from the work. -->
+<section class="intro section-shell reveal">
+    <p class="eyebrow">WHAT I BRING</p>
+    <h2>Technology gives me structure. Design gives it personality.</h2>
+    <p class="intro-copy">From a clean brand identity to a user friendly and well-structured website, I enjoy connecting technical thinking with strong visual communication.</p>
+</section>
+
+<!-- Services preview lets visitors understand the range of skills immediately. -->
+<section class="section-shell services-preview">
+    <div class="section-heading reveal"><p class="eyebrow">CAPABILITIES</p><a href="{% url 'services:list' %}">View services ↗</a></div>
+    <div class="capability-grid">
+        <a class="capability-card reveal" href="{% url 'portfolio:list' %}?c=graphic"><span>01</span><h3>Graphic Design</h3><p>Branding, posters, social graphics and visual systems.</p></a>
+        <a class="capability-card reveal" href="{% url 'portfolio:list' %}?c=photo"><span>02</span><h3>Photography</h3><p>Portraits, products, events and visual storytelling.</p></a>
+        <a class="capability-card reveal" href="{% url 'portfolio:list' %}?c=video"><span>03</span><h3>Videography</h3><p>Content, coverage, editing and cinematic presentation.</p></a>
+        <a class="capability-card reveal" href="{% url 'portfolio:list' %}?c=web"><span>04</span><h3>Web + IT</h3><p>Django websites, systems, networking and technical support.</p></a>
+    </div>
+</section>
+
+<!-- Recent project section pulls real projects from Django admin. -->
+<section class="section-shell projects-preview">
+    <div class="section-heading reveal"><div><p class="eyebrow">SELECTED WORK</p><h2>Some things I've made.</h2></div><a href="{% url 'portfolio:list' %}">See all work ↗</a></div>
+    <div class="project-grid">
+        {% for project in projects %}
+            <article class="project-card reveal">
+                {% if project.image %}
+                    <div class="project-image"><img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy"><span class="project-category">{{ project.get_category_display }}</span></div>
+                {% else %}
+                    <div class="project-image project-placeholder cat-{{ project.category }}"><span>{{ project.get_category_display }}</span></div>
+                {% endif %}
+                <div class="project-info"><h3>{{ project.title }}</h3><p>{{ project.description|truncatewords:18 }}</p></div>
+            </article>
+        {% empty %}
+            <div class="empty-state"><strong>Your projects will appear here.</strong><p>Add projects through <code>/admin/</code> and this section updates automatically.</p></div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Final call-to-action encourages visitors to contact the designer. -->
+<section class="big-cta section-shell reveal">
+    <p class="eyebrow">HAVE AN IDEA?</p>
+    <h2>Let's make something people remember.</h2>
+    <a class="btn btn-primary" href="{% url 'main:contact' %}">Start a conversation <span>↗</span></a>
+</section>
+{% endblock %}

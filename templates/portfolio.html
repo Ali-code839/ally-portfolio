@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Selected Work — Ally Hamad Mpati{% endblock %}
+
+{% block content %}
+<!-- Portfolio heading introduces the project collection. -->
+<section class="page-hero section-shell reveal">
+    <p class="eyebrow">PORTFOLIO / 2026</p>
+    <h1>Selected work.</h1>
+    <p>Design, photography, video and digital projects — presented in one place.</p>
+</section>
+
+<!-- Category filters let visitors narrow the project collection. -->
+<section class="section-shell portfolio-section">
+    <div class="filters" role="group" aria-label="Filter projects by category">
+        <a class="filter {% if active_category == 'all' %}active{% endif %}" href="{% url 'portfolio:list' %}">All</a>
+        <a class="filter {% if active_category == 'graphic' %}active{% endif %}" href="{% url 'portfolio:list' %}?c=graphic">Graphic Design</a>
+        <a class="filter {% if active_category == 'photo' %}active{% endif %}" href="{% url 'portfolio:list' %}?c=photo">Photography</a>
+        <a class="filter {% if active_category == 'video' %}active{% endif %}" href="{% url 'portfolio:list' %}?c=video">Videography</a>
+        <a class="filter {% if active_category == 'web' %}active{% endif %}" href="{% url 'portfolio:list' %}?c=web">Web Development</a>
+    </div>
+
+    <!-- Render every project returned by the Django view. -->
+    <div class="project-grid portfolio-grid">
+        {% for project in projects %}
+            <article class="project-card reveal">
+                {% if project.image %}
+                    <div class="project-image"><img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy"><span class="project-category">{{ project.get_category_display }}</span></div>
+                {% else %}
+                    <div class="project-image project-placeholder cat-{{ project.category }}"><span>{{ project.get_category_display }}</span></div>
+                {% endif %}
+                <div class="project-info"><h2>{{ project.title }}</h2><p>{{ project.description }}</p></div>
+            </article>
+        {% empty %}
+            <div class="empty-state"><strong>No projects in this category yet.</strong><p>Try another filter or add a project from Django admin.</p></div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

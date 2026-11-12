@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Tell the browser to use UTF-8 so all normal text characters display correctly. -->
+    <meta charset="UTF-8">
+    <!-- Make the layout adapt to phones, tablets and desktop screens. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Describe the site for search engines and link previews. -->
+    <meta name="description" content="Ally Hamad Mpati — software engineer, graphic designer, photographer, videographer and IT consultant in Tanzania.">
+    <!-- Give each page its own useful browser title. -->
+    <title>{% block title %}Ally Hamad Mpati — Creative Technologist{% endblock %}</title>
+    <!-- Load the two typography families used by the visual design. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Load the portfolio's main stylesheet from Django static files. -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Decorative background glow used to give the page more depth. -->
+    <div class="page-glow page-glow-one" aria-hidden="true"></div>
+    <!-- Second decorative glow. -->
+    <div class="page-glow page-glow-two" aria-hidden="true"></div>
+
+    <!-- The sticky navigation stays visible while visitors scroll. -->
+    <header class="site-header">
+        <!-- The brand links back to the homepage. -->
+        <a class="brand" href="{% url 'main:home' %}">
+            <!-- Small brand mark. -->
+            <span class="brand-mark">A</span>
+            <!-- Brand name. -->
+            <span>Ally Hamad Mpati</span>
+        </a>
+
+        <!-- Navigation links for the main pages. -->
+        <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+            <!-- Homepage navigation item. -->
+            <a href="{% url 'main:home' %}" {% if request.path == '/' %}aria-current="page"{% endif %}>Home</a>
+            <!-- Portfolio navigation item. -->
+            <a href="{% url 'portfolio:list' %}" {% if '/portfolio/' in request.path %}aria-current="page"{% endif %}>Work</a>
+            <!-- Services navigation item. -->
+            <a href="{% url 'services:list' %}" {% if '/services/' in request.path %}aria-current="page"{% endif %}>Services</a>
+            <!-- Contact navigation item. -->
+            <a href="{% url 'main:contact' %}" {% if '/contact/' in request.path %}aria-current="page"{% endif %}>Contact</a>
+        </nav>
+
+        <!-- Mobile menu button for small screens. -->
+        <button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false">Menu</button>
+    </header>
+
+    <!-- Display Django messages such as successful form submission feedback. -->
+    {% if messages %}
+        <div class="messages" role="status">
+            {% for message in messages %}
+                <p class="message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main page content is inserted by each child template. -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+<!-- The footer contains branding and optional actions. -->
+<footer class="site-footer">
+
+    <!-- Footer branding stays visible on every page, including Contact. -->
+    <div class="footer-brand">
+
+        <!-- Portfolio name. -->
+        <span class="footer-label">ALIKINGSTZ / PORTFOLIO</span>
+
+        <!-- Portfolio description. -->
+        <p>Designing ideas. Building digital experiences.</p>
+
+        <!-- Copyright notice. -->
+        <small>© 2026 Ally Hamad Mpati</small>
+
+    </div>
+
+
+    <!-- Social links and Start a project can be hidden by a child page. -->
+    {% block footer_actions %}
+
+        <!-- Social media links. -->
+        <div class="footer-socials">
+
+            <!-- Instagram. -->
+            <a
+                class="footer-social"
+                href="https://www.instagram.com/alikingstz/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit my Instagram"
+            >
+                <span class="footer-social-icon">◎</span>
+                <span>Instagram</span>
+            </a>
+
+
+            <!-- Facebook. -->
+            <a
+                class="footer-social"
+                href="https://www.facebook.com/share/1H2hu4k6U2/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit my Facebook"
+            >
+                <span class="footer-social-icon">f</span>
+                <span>Facebook</span>
+            </a>
+
+
+            <!-- WhatsApp. -->
+            <a
+                class="footer-social"
+                href="https://wa.me/255688644251"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Contact me on WhatsApp"
+            >
+                <span class="footer-social-icon">◉</span>
+                <span>WhatsApp</span>
+            </a>
+
+
+            <!-- Email. -->
+            <a
+                class="footer-social"
+                href="mailto:mpatially@gmail.com"
+                aria-label="Send me an email"
+            >
+                <span class="footer-social-icon">✉</span>
+                <span>Email</span>
+            </a>
+
+
+            <!-- Start a project. -->
+            <a
+                class="footer-cta"
+                href="{% url 'main:contact' %}"
+            >
+                Start a project <span>↗</span>
+            </a>
+
+        </div>
+
+    {% endblock %}
+
+</footer>
+    <!-- Load the small JavaScript file after the page so the HTML is ready first. -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- Allow individual pages to add their own scripts when necessary. -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>
