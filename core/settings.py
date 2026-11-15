@@ -1,5 +1,6 @@
 # Import Path so Django can build file-system paths safely on Windows and other systems.
 import os
+import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -8,13 +9,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 # Development secret key; replace this with an environment variable before production.
-SECRET_KEY = 'django-insecure-development-key-change-before-production'
+SECRET_KEY = os.getenv("SECRET_KEY", "")
 
 # Keep debugging enabled while developing locally.
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
 # Allow the local development server to respond to localhost and 127.0.0.1.
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Register Django's built-in applications and the portfolio applications.
 INSTALLED_APPS = [
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
 # Define the middleware stack used by Django for each request.
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,12 +65,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Use SQLite for this portfolio project because it is simple for local development.
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.config(
+            conn_max_age=600,
+            ssl_require=not DEBUG
+        )
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Keep Django's standard password validators enabled.
 AUTH_PASSWORD_VALIDATORS = [
@@ -92,6 +102,7 @@ USE_TZ = True
 
 # Tell Django that static files are served from the /static/ URL.
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Tell Django where the project's custom static files are stored.
 STATICFILES_DIRS = [BASE_DIR / 'static']
@@ -124,3 +135,13 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 
 # Email address that Django uses as the sender.
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Use WhiteNoise to serve compressed static files in production.
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+}
